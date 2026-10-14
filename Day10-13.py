@@ -70,11 +70,35 @@ import numpy as np
 # print(df[["AREA_s", "ECCENTRICITY_s"]].agg(["min", "max"]))
 
 
-import requests
+# import requests
 
-url = "https://jsonplaceholder.typicode.com/users"
-data = requests.get(url).json()
+# url = "https://jsonplaceholder.typicode.com/users"
+# data = requests.get(url).json()
 
-api_df = pd.DataFrame(data)
-print(api_df.shape)
-print(api_df[["id", "name", "email"]].head(3))
+# api_df = pd.DataFrame(data)
+# print(api_df.shape)
+# print(api_df[["id", "name", "email"]].head(3))
+
+
+
+df["AREA_PER_PERIMETER"] = df["AREA"] / df["PERIMETER"]
+
+print(df[["AREA", "PERIMETER", "AREA_PER_PERIMETER"]].head(3))
+
+df["AREA_GROUP"] = pd.cut(df["AREA"], bins=3, labels=["choto", "majhari", "boro"])
+
+print(df[["AREA", "AREA_GROUP"]].head(3))
+print(df["AREA_GROUP"].value_counts())
+
+
+
+d = pd.DataFrame({"date": ["2026-10-14", "2026-12-25", "2027-01-04"]})
+
+d["date"] = pd.to_datetime(d["date"])
+
+d["bochor"] = d["date"].dt.year
+d["mash"] = d["date"].dt.month
+d["din"] = d["date"].dt.day
+d["shoptaher_din"] = d["date"].dt.day_name()
+
+print(d)
